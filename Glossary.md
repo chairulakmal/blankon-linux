@@ -30,7 +30,7 @@ A GNOME Shell extension made by BlankOn. It is part of the BlankOn desktop. See 
 
 ### Sinambung
 
-The current BlankOn distribution. It is a rolling release based on [Debian Sid](#debian-sid): it gets new packages continuously, without large version upgrades. BlankOn aims to test updates before they reach users. It is also the suite name in the APT sources of a BlankOn system. See [Goals](Goals.md) and [Managing Repository](UserGuides/ManagingRepository.md).
+The current BlankOn distribution. It is a rolling release based on [Debian Sid](#debian-sid): it gets new packages in tested batches, without large version upgrades. BlankOn aims to test updates before they reach users. It is also the suite name in the APT sources of a BlankOn system. See [Goals](Goals.md) and [Managing Repository](UserGuides/ManagingRepository.md).
 
 ### Verbeek
 
