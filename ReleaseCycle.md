@@ -1,71 +1,32 @@
 # Release Cycle
 
-## 0. Repository Initialization and Sync
+This page is for maintainers and contributors. It explains how package updates move from Debian Sid to BlankOn users. The most important point: BlankOn Sinambung is a guarded rolling release, so there are no versioned releases. Updates go to a staging repository first, and reach users only after manual testing. The page has three parts: the update cycle, security updates, and ISO images. If you only use BlankOn, see [Managing Repository](https://github.com/BlankOn/blankon-linux/blob/main/UserGuides/ManagingRepository.md) instead.
 
-Please refer to IRGSH documentation.
+## Update Cycle
 
-## 1. Live Build configuration
+BlankOn has two package repositories, both with the suite name `sinambung`:
 
-Please refer to https://github.com/BlankOn/blankon-linux/blob/main/Infrastructure/DebianLiveBuild.md
+- **Arsip-dev** (`arsip-dev.blankonlinux.id`) is the staging repository. New packages from Sid arrive here first.
+- **Arsip** (`arsip.blankonlinux.id`) is the production repository. User systems get their updates from here.
 
-## 2. Alpha Release
+A team member runs each update by hand, after the team agrees to start it:
 
-We may have multiple alpha release, like Alpha 1, Alpha 2.
+1. **Snapshot.** Take a Btrfs snapshot of the Arsip-dev repository, so a bad update can be rolled back. See [Btrfs Snapshot](https://github.com/BlankOn/blankon-linux/blob/main/Infrastructure/BtrfsSnapshots.md).
+2. **Pull.** Pull new packages from Sid into Arsip-dev.
+3. **QA (quality assurance).** Contributors install and test Arsip-dev by hand.
+4. **Decide.** The contributors who ran QA choose one of three results:
+   - **All clear:** promote the update (step 5).
+   - **Some packages are broken:** patch and rebuild those packages with [IRGSH](https://github.com/BlankOn/irgsh-go), put them back into Arsip-dev, and run QA again.
+   - **Too much is broken:** roll Arsip-dev back to the snapshot from step 1, and wait for Sid to become stable before the next pull.
+5. **Promote.** Copy Arsip-dev to Arsip with `reprepro`. Packages are copied, not rebuilt. See [Reprepro](https://github.com/BlankOn/blankon-linux/blob/main/Infrastructure/Reprepro.md).
+6. **Announce.** Tell users that an update is available.
 
-Requirement / metric:
-1. The distro can be installed.
-2. Branding is not a priority.
+Two tools help with the decision. [untung](https://github.com/BlankOn/untung) compares the repositories with upstream. [tambal](https://github.com/BlankOn/tambal), at https://security.blankonlinux.id/, tracks security advisories.
 
-## 3. Beta Release
+## Security Updates
 
-We may have multiple beta release, like Beta 1, Beta 2.
+The normal update cycle also brings security fixes from Sid. A time-critical fix does not wait for the next pull: the team imports the fixed package with IRGSH. See [Package Vulnerability Monitoring](https://github.com/BlankOn/blankon-linux/blob/main/Security/PackageVulnerabilityMonitoring.md).
 
-Requirement / metric:
-1. The distro can be installed.
-2. Branding should be done.
-3. There may be some bugs.
-4. Old release could be upgraded to new release without problem.
+## ISO Images
 
-## 4. Release Candidate (RC)
-
-At this point, we need to freeze the development repo (arsip-dev) by disabling synchronization against Sid. This will ensure no more bugs are introduced by new packages from Sid. We may have multiple RC release, like RC 1, RC 2.
-
-Requirement / metric:
-1. The distro can be installed.
-2. Branding should be done.
-3. No or minimum bug on the core apps.
-4. Old release could be upgraded to new release without problem.
-5. Tested thoughtfully by core contributors.
-
-## 6. Repository Sync
-
-### 6.1 Internal
-
-Sync arsip-dev.blankonlinux.id to arsip.blankonlinux.id. The target repo should be fully synced with reprepro metadata being carried. It should be able to be remanaged with reprepro to inject security updates later.
-
-### 6.2 External
-
-Coordinate with mirror maintainers to sync our new repository.
-
-## 7. Final Release
-
-Requirement / metric:
-1. The distro can be installed.
-2. Branding should be done.
-3. No or minimum bug on the core apps.
-4. Change repository address from arsip-dev.blankonlinux.id to arsip.blankonlinux.id.
-5. Tested thoughtfully on many devices and by public users.
-
-## 8. Fixes Release
-
-If there is an important bug or security issues within the package in the ISO images, then we will release new ISO image with minor version being increased, e.g. from v12.0 to v12.1.
-
-## 9. Start over a new arsip-dev for the next release
-
-Back to `Repository Initialization and Sync` section. Repeat.
-
----
-
-## Support
-
-Default support is 1 year (12 months). This can be extended until the next release is ready. The support will remain 1 year even if the next release is released before 1 year has elapsed.
+A release ISO image has a name of the form `blankon-sinambung-YY.MM-verbeek-amd64.iso`, where `YY.MM` is the year and month, for example `26.09` for September 2026. Release images are published at https://jahitan.blankonlinux.id/releases/current/.
