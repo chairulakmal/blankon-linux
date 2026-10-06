@@ -7,7 +7,7 @@ This repository serves as :
 1. Wiki / documentation for BlankOn Linux distribution (and its variants)
 2. Bug tracking (https://github.com/BlankOn/blankon-linux/issues)
 
-If a BlankOn name such as Sinambung or Verbeek is new to you, see the [Glossary](Glossary.md).
+If a BlankOn name such as Sinambung or Verbeek is new to you, see the [Glossary](https://github.com/BlankOn/blankon-linux/blob/main/Glossary.md).
 
 ---
 
