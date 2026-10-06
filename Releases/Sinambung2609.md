@@ -11,7 +11,7 @@ The file name is `blankon-sinambung-26.09-verbeek-amd64.iso`. Each part has a me
 - **Verbeek** is the code name of the BlankOn ISO image.
 - **amd64** means the image is for 64-bit PCs with an Intel or AMD processor.
 
-After you install BlankOn, your system gets updates from Arsip, the BlankOn package repository. You do not need to download a new image to stay up to date. See [Managing Repository](../UserGuides/ManagingRepository.md).
+After you install BlankOn, your system gets updates from Arsip, the BlankOn package repository. You do not need to download a new image to stay up to date. See [Managing Repository](https://github.com/BlankOn/blankon-linux/blob/main/UserGuides/ManagingRepository.md).
 
 ## Download
 
@@ -51,7 +51,7 @@ Compare the hash in the result with the long code in the checksum file. They mus
 ## Install
 
 1. Write the ISO file to a USB drive of 4 GB or more. On Linux you can use GNOME Disks ("Restore Disk Image"). On Windows you can use a tool such as Rufus or balenaEtcher. If Rufus asks which mode to use, choose "DD Image" mode. All data on the USB drive is deleted.
-2. Turn off Secure Boot in your computer's firmware settings. You can turn it on again after the installation. See [Secure Boot](../UserGuides/SecureBoot.md).
+2. Turn off Secure Boot in your computer's firmware settings. You can turn it on again after the installation. See [Secure Boot](https://github.com/BlankOn/blankon-linux/blob/main/UserGuides/SecureBoot.md).
 3. Start the computer from the USB drive. BlankOn starts as a live system, which you can try without installing.
 4. Start the installer from the live system and follow the steps.
 
